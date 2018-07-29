@@ -17,34 +17,32 @@ bot.on("message", async message => {
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
 
-    if(cmd === `${prefix}kick`){
+    if(cmd === `${prefix}warn`){
 
-        //$kick @player this is the reason
-
-        let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-        if(!kUser) message.channel.send("Cant find user!");
-        let kReason = args.join(" ").slice(22);
-        if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("No perms pal!");
-        if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send("You cannot kick that person!");
-        // if(!message.member.roles.has(role.id))
-
-        let kickEmbed = new Discord.RichEmbed
-        .setDescription("Kick Management")
-        .setColour("#ff0000")
-        .addField("Kicked User:", `${kUser} with ID ${kUser.id}`)
-        .addField("Kicked By:", `<@${message.author.id}> with ID ${message.author.id}`)
-        .addField("Kicked in:", message.channel)
-        .addField("Time:", message.createdAt)
-        .addField("Reason:", kReason);
-
-        let kickChannel = message.guild.channels.find(`name`, "incidents");
-        if(!kickChannel) return message.channel.send("Cannot find incidents channel!");
-
-        message.guild.member(kUser).kick(kReason);
-        kickChannel.send(kickEmbed);
-
+        //!warn @player askin for it
+    
+        let wUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+        if(!wUser) return message.channel.send("Can't find user!");
+        let wReason = args.join(" ").slice(22);
+        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
+        if(wUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
+    
+        let warnEmbed = new Discord.RichEmbed()
+        .setDescription("Warnings")
+        .setColor("#e56b00")
+        .addField("Warned User", `${wUser} with ID ${wUser.id}`)
+        .addField("Warned By", `<@${message.author.id}> with ID ${message.author.id}`)
+        .addField("Warned In", message.channel)
+        .addField("Time", message.createdAt)
+        .addField("Reason", wReason);
+    
+        let warnChannel = message.guild.channels.find(`name`, "incidents");
+        if(!warnChannel) return message.channel.send("Can't find incidents channel.");
+    
+        warnChannel.send(warnEmbed);
+    
         return;
-    }
+      }
 
     if(cmd === `${prefix}report`){
 

@@ -1,0 +1,15 @@
+{
+  "name": "corebot",
+  "version": "1.0.0",
+  "description": "A corebot for discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicholxs",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "ms": "^2.1.1"
+  }
+}
